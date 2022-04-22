@@ -1,52 +1,83 @@
-import {v4 as uuid4} from 'uuid';
-import {ADD_TODO, CH_ORDER, CH_STATUS, CH_TODO, RM_TODO} from "./types";
+import {ADD_LIST, ADD_TODO, CH_ORDER, CH_STATUS, CH_TODO, RENAME_LIST, RM_LIST, RM_TODO} from "./types";
+import {DropResult} from "react-beautiful-dnd";
 
-export function addTodoAction(text: string) {
+export function addListAction(name: string) {
+    return {
+        type: ADD_LIST,
+        payload: {
+            name: name,
+            todos: []
+        }
+    }
+}
+
+export function removeListAction(listId: string) {
+    return {
+        type: RM_LIST,
+        payload: {
+            listId: listId
+        }
+    }
+}
+
+export function renameListAction(listId: string, name: string) {
+    return {
+        type: RENAME_LIST,
+        payload: {
+            listId: listId,
+            name: name
+        }
+    }
+}
+
+export function addTodoAction(listId: string, text: string) {
     return {
         type: ADD_TODO,
         payload: {
-            id: uuid4(),
+            listId: listId,
             text: text,
             isDone: false
         }
     }
 }
 
-export function removeTodoAction(id: string) {
+export function removeTodoAction(listId: string, itemId: string) {
     return {
         type: RM_TODO,
         payload: {
-            id: id
+            listId: listId,
+            itemId: itemId
         }
     }
 }
 
-export function changeTodoAction(id: string, text: string) {
+export function changeTodoAction(listId: string, itemId: string, text: string) {
     return {
         type: CH_TODO,
         payload: {
-            id: id,
+            listId: listId,
+            itemId: itemId,
             text: text
         }
     }
 }
 
-export function changeTodoStatusAction(id: string, status: boolean) {
+export function changeTodoStatusAction(listId: string, itemId: string, isDone: boolean) {
     return {
         type: CH_STATUS,
         payload: {
-            id: id,
-            isDone: status
+            listId: listId,
+            itemId: itemId,
+            isDone: isDone
         }
     }
 }
 
-export function changeTodosOrderAction(startIndex: number, endIndex: number) {
+export function changeTodosOrderAction(dropResult: DropResult) {
     return {
         type: CH_ORDER,
         payload: {
-            startIndex: startIndex,
-            endIndex: endIndex
+            dropResult: dropResult
         }
     }
 }
