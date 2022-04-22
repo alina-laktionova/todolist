@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Box, Button, OutlinedInput} from "@mui/material";
 import {
@@ -8,10 +8,10 @@ import {
     DroppableProvided,
     DropResult
 } from "react-beautiful-dnd";
-import {addListAction, dragAndDropAction} from "./store/actions";
+import {addListAction, dragAndDropAction, loadListsFromStorage} from "./store/actions";
 import TodoList from "./components/TodoList";
 import TodoListInterface from "./models/TodoListInterface";
-import {LIST} from "./config/constants";
+import {LIST, STORAGE_KEY} from "./config/constants";
 
 
 function App() {
@@ -19,6 +19,19 @@ function App() {
     const dispatch = useDispatch()
 
     const [listName, setListName] = useState<string>('')
+
+    useEffect(() => {
+        const listsString: string | null = localStorage.getItem(STORAGE_KEY)
+        if (listsString) {
+            const lists: TodoListInterface[] = JSON.parse(listsString)
+            dispatch(loadListsFromStorage(lists))
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(todoLists))
+    }, [todoLists]);
+
 
     function onDragEnd(result: DropResult) {
         dispatch(dragAndDropAction(result))

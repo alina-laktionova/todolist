@@ -1,5 +1,25 @@
-import {ADD_LIST, ADD_TODO, DRAG_AND_DROP, CH_TODO_STATUS, CH_TODO_TEXT, RENAME_LIST, DELETE_LIST, DELETE_TODO} from "./types";
+import {
+    ADD_LIST,
+    ADD_TODO,
+    DRAG_AND_DROP,
+    CH_TODO_STATUS,
+    CH_TODO_TEXT,
+    RENAME_LIST,
+    DELETE_LIST,
+    DELETE_TODO,
+    LOAD_LISTS
+} from "./types";
 import {DropResult} from "react-beautiful-dnd";
+import TodoListInterface from "../models/TodoListInterface";
+
+export function loadListsFromStorage(lists: TodoListInterface[]) {
+    return {
+        type: LOAD_LISTS,
+        payload: {
+            lists: lists
+        }
+    }
+}
 
 export function addListAction(name: string) {
     return {

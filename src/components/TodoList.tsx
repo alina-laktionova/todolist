@@ -5,7 +5,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import {useDispatch} from "react-redux";
-import {Draggable, DraggableProvided, Droppable, DroppableProvided, DroppableStateSnapshot} from "react-beautiful-dnd";
+import {
+    Draggable,
+    DraggableProvided,
+    Droppable,
+    DroppableProvided,
+    DroppableStateSnapshot
+} from "react-beautiful-dnd";
 import {Box, IconButton, Input, Typography} from "@mui/material";
 import TodoInput from "./TodoInput";
 import {removeListAction, renameListAction} from "../store/actions";
@@ -55,8 +61,7 @@ export default function TodoList(props: Props) {
             <Typography variant={'subtitle1'}
                         textAlign={'left'}
                         marginY={'20px'}
-                        width={'15%'}
-                        onClick={() => setEditName(!editName)}>
+                        width={'15%'}>
                 ({todos.length} {todos.length === 1 ? 'task' : 'tasks'})
             </Typography>
             {editName ?
@@ -70,8 +75,7 @@ export default function TodoList(props: Props) {
                        onChange={handleChangeInput}/> :
                 <Typography variant={'h5'}
                             textAlign={'center'}
-                            marginY={'20px'}
-                            onClick={() => setEditName(!editName)}>
+                            marginY={'20px'}>
                     {listName}
                 </Typography>
             }
@@ -120,3 +124,4 @@ export default function TodoList(props: Props) {
 
     </Box>
 }
+

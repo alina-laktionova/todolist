@@ -2,12 +2,12 @@ import {ActionType} from "../models/ActionType";
 import {
     ADD_LIST,
     ADD_TODO,
-    DRAG_AND_DROP,
     CH_TODO_STATUS,
     CH_TODO_TEXT,
-    RENAME_LIST,
     DELETE_LIST,
-    DELETE_TODO
+    DELETE_TODO,
+    DRAG_AND_DROP, LOAD_LISTS,
+    RENAME_LIST
 } from "./types";
 import TodoListInterface from "../models/TodoListInterface";
 import {DropResult} from "react-beautiful-dnd";
@@ -16,12 +16,12 @@ import TodoItemInterface from "../models/TodoItemInterface";
 import {LIST} from "../config/constants";
 
 
-const init: TodoListInterface[] = []
-
-export default function todoReducer(todoLists: TodoListInterface[] = init, action: ActionType) {
+export default function todoReducer(todoLists: TodoListInterface[] = [], action: ActionType) {
     const {type, payload} = action
 
     switch (type) {
+        case LOAD_LISTS:
+            return payload.lists
         case ADD_LIST:
             return [...todoLists, {id: uuid(), name: payload.name, todos: payload.todos}];
         case DELETE_LIST:

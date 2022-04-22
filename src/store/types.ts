@@ -1,3 +1,5 @@
+export const LOAD_LISTS = 'Load todo lists from storage';
+
 export const ADD_LIST = 'Add todo list';
 export const DELETE_LIST = 'Delete todo list';
 export const RENAME_LIST = 'Rename todo list';
