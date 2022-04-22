@@ -5,10 +5,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import {useDispatch} from "react-redux";
-import {Draggable, DraggableProvided} from "react-beautiful-dnd";
+import {Draggable, DraggableProvided, Droppable, DroppableProvided, DroppableStateSnapshot} from "react-beautiful-dnd";
 import {Box, IconButton, Input, Typography} from "@mui/material";
 import TodoInput from "./TodoInput";
 import {removeListAction, renameListAction} from "../store/actions";
+import {ITEM} from "../config/constants";
 
 type Props = {
     listId: string
@@ -72,7 +73,8 @@ export default function TodoList(props: Props) {
                             marginY={'20px'}
                             onClick={() => setEditName(!editName)}>
                     {listName}
-                </Typography>}
+                </Typography>
+            }
             <Box>
                 {editName ?
                     <IconButton onClick={() => changeName(listId, listName)}>
@@ -89,17 +91,32 @@ export default function TodoList(props: Props) {
         </Box>
 
         <TodoInput listId={listId}/>
+        <Droppable droppableId={listId} key={listId}
+                   direction="vertical" type={ITEM}>
+            {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+                <Box ref={provided.innerRef}
+                     {...provided.droppableProps}
+                     sx={{
+                         margin: '20px',
+                         background: snapshot.isDraggingOver
+                             ? "#97d1f0"
+                             : "#c0e4f7",
+                     }}>
+                    {todos.map((todo: TodoItemInterface, index: number) => (
+                        <Draggable draggableId={todo.id} key={todo.id} index={index}>
+                            {(provided: DraggableProvided) => (
+                                <Box ref={provided.innerRef}
+                                     {...provided.draggableProps}
+                                     {...provided.dragHandleProps}>
+                                    <TodoItem todo={todo} key={todo.id} listId={listId}/>
+                                </Box>
+                            )}
+                        </Draggable>
+                    ))}
+                    {provided.placeholder}
+                </Box>
+            )}
+        </Droppable>
 
-        {todos.map((todo: TodoItemInterface, index: number) => (
-            <Draggable draggableId={todo.id} key={todo.id} index={index}>
-                {(provided: DraggableProvided, snapshot) => (
-                    <Box ref={provided.innerRef}
-                         {...provided.draggableProps}
-                         {...provided.dragHandleProps}>
-                        <TodoItem todo={todo} key={todo.id} listId={listId}/>
-                    </Box>
-                )}
-            </Draggable>
-        ))}
     </Box>
 }

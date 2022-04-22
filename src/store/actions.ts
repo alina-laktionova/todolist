@@ -1,4 +1,4 @@
-import {ADD_LIST, ADD_TODO, CH_ORDER, CH_STATUS, CH_TODO, RENAME_LIST, RM_LIST, RM_TODO} from "./types";
+import {ADD_LIST, ADD_TODO, DRAG_AND_DROP, CH_TODO_STATUS, CH_TODO_TEXT, RENAME_LIST, DELETE_LIST, DELETE_TODO} from "./types";
 import {DropResult} from "react-beautiful-dnd";
 
 export function addListAction(name: string) {
@@ -13,7 +13,7 @@ export function addListAction(name: string) {
 
 export function removeListAction(listId: string) {
     return {
-        type: RM_LIST,
+        type: DELETE_LIST,
         payload: {
             listId: listId
         }
@@ -36,14 +36,13 @@ export function addTodoAction(listId: string, text: string) {
         payload: {
             listId: listId,
             text: text,
-            isDone: false
         }
     }
 }
 
 export function removeTodoAction(listId: string, itemId: string) {
     return {
-        type: RM_TODO,
+        type: DELETE_TODO,
         payload: {
             listId: listId,
             itemId: itemId
@@ -53,7 +52,7 @@ export function removeTodoAction(listId: string, itemId: string) {
 
 export function changeTodoAction(listId: string, itemId: string, text: string) {
     return {
-        type: CH_TODO,
+        type: CH_TODO_TEXT,
         payload: {
             listId: listId,
             itemId: itemId,
@@ -64,7 +63,7 @@ export function changeTodoAction(listId: string, itemId: string, text: string) {
 
 export function changeTodoStatusAction(listId: string, itemId: string, isDone: boolean) {
     return {
-        type: CH_STATUS,
+        type: CH_TODO_STATUS,
         payload: {
             listId: listId,
             itemId: itemId,
@@ -73,9 +72,9 @@ export function changeTodoStatusAction(listId: string, itemId: string, isDone: b
     }
 }
 
-export function changeTodosOrderAction(dropResult: DropResult) {
+export function dragAndDropAction(dropResult: DropResult) {
     return {
-        type: CH_ORDER,
+        type: DRAG_AND_DROP,
         payload: {
             dropResult: dropResult
         }

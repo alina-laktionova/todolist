@@ -31,7 +31,7 @@ export default function TodoInput(props: Props) {
     }
 
     return <OutlinedInput
-        sx={{margin: '0 25px', width: '92%'}}
+        sx={{margin: '0 20px', width: '92%'}}
         value={todoText}
         onChange={handleChangeInput}
         onKeyDown={handleKeyPress}

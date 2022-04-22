@@ -5,10 +5,3 @@ export default interface TodoListInterface {
     name: string,
     todos: TodoItemInterface[]
 }
-
-// export default interface TodoListInterface {
-//     [id: string]: {
-//         name: string,
-//         todos: TodoItemInterface[]
-//     }
-// }

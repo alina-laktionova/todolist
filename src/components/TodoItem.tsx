@@ -47,24 +47,23 @@ export default function TodoItem(props: Props) {
     }
 
     return <List>
-        <ListItem
-            key={todo.id}
-            secondaryAction={
-                <Box>
-                    {editTodo ?
-                        <IconButton onClick={() => changeText(todo.id, newText)}>
-                            <DoneOutlineIcon/>
-                        </IconButton> :
-                        <IconButton onClick={() => setEditTodo(true)}>
-                            <EditOutlinedIcon/>
-                        </IconButton>
-                    }
-                    <IconButton onClick={() => removeTodo(todo.id)}>
-                        <DeleteOutlineIcon/>
-                    </IconButton>
-                </Box>
-            }
-            disablePadding>
+        <ListItem key={todo.id}
+                  disablePadding
+                  secondaryAction={
+                      <Box>
+                          {editTodo ?
+                              <IconButton onClick={() => changeText(todo.id, newText)}>
+                                  <DoneOutlineIcon/>
+                              </IconButton> :
+                              <IconButton onClick={() => setEditTodo(true)}>
+                                  <EditOutlinedIcon/>
+                              </IconButton>
+                          }
+                          <IconButton onClick={() => removeTodo(todo.id)}>
+                              <DeleteOutlineIcon/>
+                          </IconButton>
+                      </Box>
+                  }>
             <ListItemButton
                 sx={{
                     '&.MuiListItemButton-root': {
