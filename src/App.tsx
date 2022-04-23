@@ -57,7 +57,7 @@ function App() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            padding: '40px 0 20px 0'
+            padding: '40px 0 20px 0',
         }}>
             <OutlinedInput
                 sx={{
@@ -91,16 +91,15 @@ function App() {
                      {...provided.droppableProps}
                      sx={{
                          display: 'flex',
-                         flexWrap: 'wrap',
-                         justifyContent: 'space-around',
+                         overflow: 'auto',
+                         marginX: '20px',
                      }}>
                     {todoLists.map((list: TodoListInterface, index: number) =>
                         <Draggable draggableId={list.id} index={index} key={list.id}>
                             {(provided: DraggableProvided) => (
                                 <Box ref={provided.innerRef}
                                      {...provided.draggableProps}
-                                     {...provided.dragHandleProps}
-                                     sx={{backgroundColor: '#d0eaf9', margin: '20px'}}>
+                                     {...provided.dragHandleProps}>
                                     <TodoList todos={list.todos} listId={list.id} name={list.name} key={list.id}/>
                                 </Box>
                             )}

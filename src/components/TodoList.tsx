@@ -23,7 +23,7 @@ type Props = {
     todos: TodoItemInterface[]
 }
 
-export default function TodoList(props: Props) {
+export default React.memo(function TodoList(props: Props) {
     const dispatch = useDispatch()
 
     const {todos, listId, name} = props
@@ -31,7 +31,7 @@ export default function TodoList(props: Props) {
     const [editName, setEditName] = useState<boolean>(false)
 
     function changeName(id: string, name: string) {
-        dispatch(renameListAction(id, name))
+        if(name !== listName) dispatch(renameListAction(id, name))
         setEditName(false)
     }
 
@@ -46,22 +46,22 @@ export default function TodoList(props: Props) {
     return <Box sx={{
         display: 'flex',
         flexDirection: 'column',
-        maxWidth: '1000px',
-        width: '500px',
+        width: '450px',
         padding: '20px',
-        borderRadius: '10px'
+        borderRadius: '5px',
+        backgroundColor: '#d0eaf9',
+        margin: '5px'
     }}>
         <Box sx={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            margin: '0 17px 0 24px',
             height: '80px'
         }}>
             <Typography variant={'subtitle1'}
                         textAlign={'left'}
                         marginY={'20px'}
-                        width={'15%'}>
+                        width={'80px'}>
                 ({todos.length} {todos.length === 1 ? 'task' : 'tasks'})
             </Typography>
             {editName ?
@@ -75,11 +75,13 @@ export default function TodoList(props: Props) {
                        onChange={handleChangeInput}/> :
                 <Typography variant={'h5'}
                             textAlign={'center'}
-                            marginY={'20px'}>
+                            marginY={'20px'}
+                            overflow={'hidden'}
+                            width={'310px'}>
                     {listName}
                 </Typography>
             }
-            <Box>
+            <Box display={"flex"}>
                 {editName ?
                     <IconButton onClick={() => changeName(listId, listName)}>
                         <DoneOutlineIcon/>
@@ -101,7 +103,7 @@ export default function TodoList(props: Props) {
                 <Box ref={provided.innerRef}
                      {...provided.droppableProps}
                      sx={{
-                         margin: '20px',
+                         marginY: '20px',
                          background: snapshot.isDraggingOver
                              ? "#97d1f0"
                              : "#c0e4f7",
@@ -123,5 +125,5 @@ export default function TodoList(props: Props) {
         </Droppable>
 
     </Box>
-}
+})
 

@@ -22,7 +22,7 @@ type Props = {
     listId: string
 }
 
-export default function TodoItem(props: Props) {
+export default React.memo(function TodoItem(props: Props) {
     const {todo, listId} = props
     const [editTodo, setEditTodo] = useState<boolean>(false)
     const [newText, setNewText] = useState<string>(todo.text)
@@ -38,7 +38,7 @@ export default function TodoItem(props: Props) {
     }
 
     function changeText(id: string, text: string) {
-        dispatch(changeTodoAction(listId, id, text))
+        if (text !== todo.text) dispatch(changeTodoAction(listId, id, text))
         setEditTodo(false)
     }
 
@@ -50,7 +50,7 @@ export default function TodoItem(props: Props) {
         <ListItem key={todo.id}
                   disablePadding
                   secondaryAction={
-                      <Box>
+                      <Box display={"flex"}>
                           {editTodo ?
                               <IconButton onClick={() => changeText(todo.id, newText)}>
                                   <DoneOutlineIcon/>
@@ -70,7 +70,7 @@ export default function TodoItem(props: Props) {
                         paddingRight: '105px'
                     }
                 }}>
-                <ListItemIcon>
+                <ListItemIcon sx={{minWidth: '45px'}}>
                     <Checkbox checked={todo.isDone}
                               onChange={() => changeStatus(todo.id, !todo.isDone)}/>
                 </ListItemIcon>
@@ -78,11 +78,12 @@ export default function TodoItem(props: Props) {
                     editTodo ?
                         <Input defaultValue={todo.text} fullWidth
                                onChange={handleChangeInput}/> :
-                        <Typography sx={{textDecoration: todo.isDone ? 'line-through' : 'none'}}>
+                        <Typography overflow={'hidden'}
+                                    sx={{textDecoration: todo.isDone ? 'line-through' : 'none'}}>
                             {todo.text}
                         </Typography>
                 }/>
             </ListItemButton>
         </ListItem>
     </List>
-}
+})
