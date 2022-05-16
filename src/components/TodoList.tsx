@@ -54,7 +54,6 @@ export default React.memo(function TodoList(props: Props) {
                 lg: '22.5vw'
             },
             minWidth: '315px',
-            maxWidth: '500px',
             padding: '7px',
             borderRadius: '5px',
             backgroundColor: '#d0eaf9',

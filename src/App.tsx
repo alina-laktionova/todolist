@@ -63,7 +63,7 @@ export default function App() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            padding: '40px 0 20px 0',
+            paddingY: '20px',
         }}>
             <OutlinedInput
                 sx={{
