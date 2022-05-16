@@ -16,6 +16,8 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import TodoItemInterface from "../models/TodoItemInterface";
 import {changeTodoAction, changeTodoStatusAction, removeTodoAction} from "../store/actions";
 import {useDispatch} from "react-redux";
+import {Dispatch} from "redux";
+
 
 type Props = {
     todo: TodoItemInterface
@@ -27,7 +29,7 @@ export default React.memo(function TodoItem(props: Props) {
     const [editTodo, setEditTodo] = useState<boolean>(false)
     const [newText, setNewText] = useState<string>(todo.text)
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<Dispatch>()
 
     function removeTodo(id: string) {
         dispatch(removeTodoAction(listId, id))
@@ -46,11 +48,12 @@ export default React.memo(function TodoItem(props: Props) {
         setNewText(event.currentTarget.value)
     }
 
-    return <List>
+    return <List disablePadding>
         <ListItem key={todo.id}
                   disablePadding
+                  disableGutters
                   secondaryAction={
-                      <Box display={"flex"}>
+                      <Box display={"flex"} paddingRight={'5px'}>
                           {editTodo ?
                               <IconButton onClick={() => changeText(todo.id, newText)}>
                                   <DoneOutlineIcon/>
@@ -64,21 +67,24 @@ export default React.memo(function TodoItem(props: Props) {
                           </IconButton>
                       </Box>
                   }>
-            <ListItemButton
-                sx={{
-                    '&.MuiListItemButton-root': {
-                        paddingRight: '105px'
-                    }
-                }}>
+            <ListItemButton disableGutters
+                            sx={{
+                                '&.MuiListItemButton-root': {
+                                    paddingRight: '88px',
+                                    paddingLeft: '5px'
+                                }
+                            }}>
                 <ListItemIcon sx={{minWidth: '45px'}}>
                     <Checkbox checked={todo.isDone}
                               onChange={() => changeStatus(todo.id, !todo.isDone)}/>
                 </ListItemIcon>
                 <ListItemText primary={
                     editTodo ?
-                        <Input defaultValue={todo.text} fullWidth
+                        <Input defaultValue={todo.text}
+                               fullWidth
                                onChange={handleChangeInput}/> :
                         <Typography overflow={'hidden'}
+                                    variant={"body1"}
                                     sx={{textDecoration: todo.isDone ? 'line-through' : 'none'}}>
                             {todo.text}
                         </Typography>

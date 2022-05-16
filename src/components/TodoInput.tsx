@@ -3,6 +3,8 @@ import {IconButton, InputAdornment, OutlinedInput} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import {useDispatch} from "react-redux";
 import {addTodoAction} from "../store/actions";
+import {Dispatch} from "redux";
+
 
 type Props = {
     listId: string
@@ -10,7 +12,7 @@ type Props = {
 
 export default function TodoInput(props: Props) {
     const {listId} = props
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<Dispatch>()
     const [todoText, setTodoText] = useState<string>('')
 
     function addNewTodo() {

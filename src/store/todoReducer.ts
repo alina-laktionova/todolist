@@ -16,7 +16,9 @@ import TodoItemInterface from "../models/TodoItemInterface";
 import {LIST} from "../config/constants";
 
 
-export default function todoReducer(todoLists: TodoListInterface[] = [], action: ActionType) {
+const init: TodoListInterface[] = []
+
+export default function todoReducer(todoLists: TodoListInterface[] = init, action: ActionType) {
     const {type, payload} = action
 
     switch (type) {
@@ -46,7 +48,9 @@ export default function todoReducer(todoLists: TodoListInterface[] = [], action:
 
 function renameList(lists: TodoListInterface[], listId: string, newName: string): TodoListInterface[] {
     return lists.map(list => {
-        if (list.id === listId) return {...list, name: newName};
+        if (list.id === listId && list.name !== newName) {
+            return {...list, name: newName};
+        }
         return list;
     });
 }

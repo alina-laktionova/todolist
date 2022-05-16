@@ -12,6 +12,7 @@ import {
 import {DropResult} from "react-beautiful-dnd";
 import TodoListInterface from "../models/TodoListInterface";
 
+
 export function loadListsFromStorage(lists: TodoListInterface[]) {
     return {
         type: LOAD_LISTS,

@@ -8,6 +8,7 @@ import {store} from "./store/store";
 import {ThemeProvider} from "@mui/material";
 import {theme} from "./styles/miuCustomTheme";
 
+
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
