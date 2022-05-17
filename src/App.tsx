@@ -63,7 +63,7 @@ export default function App() {
     }}>
         <Box sx={{
             position: 'relative',
-            height: '100px'
+            height: smallScreen ? '85px' : '100px',
         }}>
             <Box sx={{
                 backgroundColor: 'rgba(255,255,255,0.6)',
@@ -72,10 +72,10 @@ export default function App() {
                 width: 'fit-content',
                 display: 'flex',
                 position: 'fixed',
-                top: '15px',
+                top: smallScreen ? '10px' : '15px',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                zIndex: '10000'
+                zIndex: '-1'
             }}>
                 <OutlinedInput
                     sx={{
@@ -113,6 +113,7 @@ export default function App() {
                     <Box ref={provided.innerRef}
                          {...provided.droppableProps}
                          sx={{
+                             backgroundColor: 'white',
                              display: 'flex',
                              marginX: smallScreen ? '5px' : '10px',
                              flexDirection: smallScreen ? 'column' : 'row',
