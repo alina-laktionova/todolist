@@ -81,7 +81,7 @@ export default function App() {
                     sx={{
                         marginRight: '5px',
                         maxWidth: '300px',
-                        width: '75%',
+                        width: '65vw',
                         height: '56px',
                         backgroundColor: 'white'
                     }}
@@ -92,8 +92,10 @@ export default function App() {
                 <Button variant={"contained"}
                         onClick={() => addNewList(listName)}
                         sx={{
+                            padding: '5px',
                             boxShadow: 'none',
-                            width: 'fit-content',
+                            width: smallScreen? '60px' : '135px',
+                            minWidth: '60px',
                             height: '56px',
                         }}>
                     {smallScreen ? <AddIcon/> : 'Add new list'}

@@ -58,7 +58,7 @@ export default React.memo(function TodoList(props: Props) {
             padding: '7px',
             borderRadius: '5px',
             backgroundColor: isDragging
-                ? theme.palette.secondary.main
+                ? '#c9e9fa'
                 : theme.palette.secondary.light,
             margin: {
                 xs: '5px 0',
