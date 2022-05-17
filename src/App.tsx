@@ -113,6 +113,7 @@ export default function App() {
                          {...provided.droppableProps}
                          sx={{
                              width: 'fit-content',
+                             minWidth: '100%',
                              backgroundColor: 'white',
                              display: 'flex',
                              marginX: smallScreen ? '5px' : '10px',
