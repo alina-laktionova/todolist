@@ -94,17 +94,16 @@ export default function App() {
                         sx={{
                             padding: '5px',
                             boxShadow: 'none',
-                            width: smallScreen? '60px' : '135px',
+                            width: smallScreen ? '60px' : '135px',
                             minWidth: '60px',
                             height: '56px',
                         }}>
                     {smallScreen ? <AddIcon/> : 'Add new list'}
                 </Button>
             </Box>
-
         </Box>
-        <DragDropContext onDragEnd={onDragEnd}>
 
+        <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId={'listBoard'}
                        key={'listBoard'}
                        direction={smallScreen ? 'vertical' : 'horizontal'}
@@ -113,6 +112,7 @@ export default function App() {
                     <Box ref={provided.innerRef}
                          {...provided.droppableProps}
                          sx={{
+                             width: 'fit-content',
                              backgroundColor: 'white',
                              display: 'flex',
                              marginX: smallScreen ? '5px' : '10px',
@@ -134,7 +134,6 @@ export default function App() {
                     </Box>
                 )}
             </Droppable>
-
         </DragDropContext>
     </Box>
 }
