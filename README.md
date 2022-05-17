@@ -1,4 +1,4 @@
 # Draggable Todo Lists
 
-Demo: alina-laktionova.github.io/todolist/
+Demo: https://alina-laktionova.github.io/todolist/
 
