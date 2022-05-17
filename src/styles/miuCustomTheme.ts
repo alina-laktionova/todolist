@@ -1,6 +1,17 @@
 import {createTheme} from "@mui/material";
 
 export const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#3f698b',
+            dark: '#27567c',
+        },
+        secondary: {
+            main: '#bfe3f5',
+            light: '#d0eaf9',
+            dark: '#a4cbde',
+        },
+    },
     typography: {
         fontFamily: 'Montserrat, sans-serif',
         h6: {

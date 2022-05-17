@@ -10,12 +10,12 @@ import {
     DraggableProvided, DraggableStateSnapshot,
     Droppable,
     DroppableProvided,
-    DroppableStateSnapshot
 } from "react-beautiful-dnd";
-import {Box, Grid, IconButton, Input, Typography} from "@mui/material";
+import {Box, Grid, IconButton, Input, List, Typography} from "@mui/material";
 import TodoInput from "./TodoInput";
 import {removeListAction, renameListAction} from "../store/actions";
 import {ITEM} from "../config/constants";
+import {theme} from "../styles/miuCustomTheme";
 
 
 type Props = {
@@ -57,7 +57,9 @@ export default React.memo(function TodoList(props: Props) {
             minWidth: '315px',
             padding: '7px',
             borderRadius: '5px',
-            backgroundColor: isDragging ? '#c6ebfd' : '#d0eaf9',
+            backgroundColor: isDragging
+                ? theme.palette.secondary.main
+                : theme.palette.secondary.light,
             margin: {
                 xs: '5px 0',
                 sm: '0 5px',
@@ -70,12 +72,12 @@ export default React.memo(function TodoList(props: Props) {
               paddingY={1}
               flexWrap={'nowrap'}
               maxWidth={'100%'}>
-                <Grid item width={'fit-content'} flexWrap={"nowrap"}>
-                    <Typography variant={'subtitle2'} flexWrap={"nowrap"}
-                                textAlign={'left'}>
-                        ({todos.length} {todos.length === 1 ? 'task' : 'tasks'})
-                    </Typography>
-                </Grid>
+            <Grid item width={'fit-content'} flexWrap={"nowrap"}>
+                <Typography variant={'subtitle2'} flexWrap={"nowrap"}
+                            textAlign={'left'}>
+                    ({todos.length} {todos.length === 1 ? 'task' : 'tasks'})
+                </Typography>
+            </Grid>
             {editName ?
                 <Grid item maxWidth={'54%'}>
                     <Input defaultValue={listName}
@@ -118,25 +120,29 @@ export default React.memo(function TodoList(props: Props) {
         <TodoInput listId={listId}/>
         <Droppable droppableId={listId} key={listId}
                    direction="vertical" type={ITEM}>
-            {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+            {(provided: DroppableProvided) => (
                 <Box ref={provided.innerRef}
                      {...provided.droppableProps}
                      sx={{
+                         borderRadius: '5px',
                          marginY: '20px',
-                         background: snapshot.isDraggingOver
-                             ? "#b7e4fc"
-                             : "#c0e4f7",
+                         background: theme.palette.secondary.main,
                      }}>
                     {todos.map((todo: TodoItemInterface, index: number) => (
                         <Draggable draggableId={todo.id} key={todo.id} index={index}>
                             {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-                                <Box ref={provided.innerRef}
-                                     {...provided.draggableProps}
-                                     {...provided.dragHandleProps}
-                                    sx={{backgroundColor: snapshot.isDragging ? '#afe2fd' : '#c0e4f7'}}
-                                >
+                                <List disablePadding
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      sx={{
+                                          borderRadius: '5px',
+                                          backgroundColor: snapshot.isDragging
+                                              ? theme.palette.secondary.dark
+                                              : theme.palette.secondary.main
+                                      }}>
                                     <TodoItem todo={todo} key={todo.id} listId={listId}/>
-                                </Box>
+                                </List>
                             )}
                         </Draggable>
                     ))}

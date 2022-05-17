@@ -1,8 +1,8 @@
 import {
     Box,
     Checkbox,
-    IconButton, Input,
-    List,
+    IconButton,
+    Input,
     ListItem,
     ListItemButton,
     ListItemIcon,
@@ -48,48 +48,45 @@ export default React.memo(function TodoItem(props: Props) {
         setNewText(event.currentTarget.value)
     }
 
-    return <List disablePadding>
-        <ListItem key={todo.id}
-                  disablePadding
-                  disableGutters
-                  secondaryAction={
-                      <Box display={"flex"} paddingRight={'5px'}>
-                          {editTodo ?
-                              <IconButton onClick={() => changeText(todo.id, newText)}>
-                                  <DoneOutlineIcon/>
-                              </IconButton> :
-                              <IconButton onClick={() => setEditTodo(true)}>
-                                  <EditOutlinedIcon/>
-                              </IconButton>
-                          }
-                          <IconButton onClick={() => removeTodo(todo.id)}>
-                              <DeleteOutlineIcon/>
-                          </IconButton>
-                      </Box>
-                  }>
-            <ListItemButton disableGutters
-                            sx={{
-                                '&.MuiListItemButton-root': {
-                                    paddingRight: '88px',
-                                    paddingLeft: '5px'
-                                }
-                            }}>
-                <ListItemIcon sx={{minWidth: '45px'}}>
-                    <Checkbox checked={todo.isDone}
-                              onChange={() => changeStatus(todo.id, !todo.isDone)}/>
-                </ListItemIcon>
-                <ListItemText primary={
-                    editTodo ?
-                        <Input defaultValue={todo.text}
-                               fullWidth
-                               onChange={handleChangeInput}/> :
-                        <Typography overflow={'hidden'}
-                                    variant={"body1"}
-                                    sx={{textDecoration: todo.isDone ? 'line-through' : 'none'}}>
-                            {todo.text}
-                        </Typography>
-                }/>
-            </ListItemButton>
-        </ListItem>
-    </List>
+    return <ListItem key={todo.id}
+                     disablePadding
+                     disableGutters
+                     secondaryAction={
+                         <Box display={"flex"} paddingRight={'5px'}>
+                             {editTodo ?
+                                 <IconButton onClick={() => changeText(todo.id, newText)}>
+                                     <DoneOutlineIcon/>
+                                 </IconButton> :
+                                 <IconButton onClick={() => setEditTodo(true)}>
+                                     <EditOutlinedIcon/>
+                                 </IconButton>
+                             }
+                             <IconButton onClick={() => removeTodo(todo.id)}>
+                                 <DeleteOutlineIcon/>
+                             </IconButton>
+                         </Box>
+                     }>
+        <ListItemButton disableGutters
+                        sx={{
+                            '&.MuiListItemButton-root': {
+                                padding: '5px 88px 5px 5px',
+                            }
+                        }}>
+            <ListItemIcon sx={{minWidth: '45px'}}>
+                <Checkbox checked={todo.isDone}
+                          onChange={() => changeStatus(todo.id, !todo.isDone)}/>
+            </ListItemIcon>
+            <ListItemText primary={
+                editTodo ?
+                    <Input defaultValue={todo.text}
+                           fullWidth
+                           onChange={handleChangeInput}/> :
+                    <Typography overflow={'hidden'}
+                                variant={"body1"}
+                                sx={{textDecoration: todo.isDone ? 'line-through' : 'none'}}>
+                        {todo.text}
+                    </Typography>
+            }/>
+        </ListItemButton>
+    </ListItem>
 })

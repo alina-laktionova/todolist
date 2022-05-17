@@ -3,7 +3,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {Box, Button, OutlinedInput, useMediaQuery} from "@mui/material";
 import {
     DragDropContext,
-    Draggable, DraggableProvided, DraggableStateSnapshot,
+    Draggable,
+    DraggableProvided,
+    DraggableStateSnapshot,
     Droppable,
     DroppableProvided,
     DropResult
@@ -60,35 +62,44 @@ export default function App() {
         overflow: 'auto',
     }}>
         <Box sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingY: '20px',
+            position: 'relative',
+            height: '100px'
         }}>
-            <OutlinedInput
-                sx={{
-                    marginRight: '5px',
-                    maxWidth: '300px',
-                    width: '75%',
-                    height: '56px'
-                }}
-                value={listName}
-                onChange={handleChangeInput}
-                onKeyDown={handleKeyPress}
-                placeholder={'name of the list'}/>
-            <Button variant={"contained"}
-                    onClick={() => addNewList(listName)}
+            <Box sx={{
+                backgroundColor: 'rgba(255,255,255,0.6)',
+                padding: '7px',
+                borderRadius: '5px',
+                width: 'fit-content',
+                display: 'flex',
+                position: 'fixed',
+                top: '15px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                zIndex: '10000'
+            }}>
+                <OutlinedInput
                     sx={{
-                        boxShadow: 'none',
-                        width: 'fit-content',
+                        marginRight: '5px',
+                        maxWidth: '300px',
+                        width: '75%',
                         height: '56px',
-                        backgroundColor: '#3f698b',
-                        '&: hover': {
-                            backgroundColor: '#27567c',
-                        }
-                    }}>
-                {smallScreen ? <AddIcon/> : 'Add new list'}
-            </Button>
+                        backgroundColor: 'white'
+                    }}
+                    value={listName}
+                    onChange={handleChangeInput}
+                    onKeyDown={handleKeyPress}
+                    placeholder={'name of the list'}/>
+                <Button variant={"contained"}
+                        onClick={() => addNewList(listName)}
+                        sx={{
+                            boxShadow: 'none',
+                            width: 'fit-content',
+                            height: '56px',
+                        }}>
+                    {smallScreen ? <AddIcon/> : 'Add new list'}
+                </Button>
+            </Box>
+
         </Box>
         <DragDropContext onDragEnd={onDragEnd}>
 
