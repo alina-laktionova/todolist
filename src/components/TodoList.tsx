@@ -7,7 +7,7 @@ import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import {useDispatch} from "react-redux";
 import {
     Draggable,
-    DraggableProvided,
+    DraggableProvided, DraggableStateSnapshot,
     Droppable,
     DroppableProvided,
     DroppableStateSnapshot
@@ -22,12 +22,13 @@ type Props = {
     listId: string
     name: string
     todos: TodoItemInterface[]
+    isDragging: boolean
 }
 
 export default React.memo(function TodoList(props: Props) {
     const dispatch = useDispatch()
 
-    const {todos, listId, name} = props
+    const {todos, listId, name, isDragging} = props
     const [listName, setListName] = useState<string>(name)
     const [editName, setEditName] = useState<boolean>(false)
 
@@ -56,7 +57,7 @@ export default React.memo(function TodoList(props: Props) {
             minWidth: '315px',
             padding: '7px',
             borderRadius: '5px',
-            backgroundColor: '#d0eaf9',
+            backgroundColor: isDragging ? '#c6ebfd' : '#d0eaf9',
             margin: {
                 xs: '5px 0',
                 sm: '0 5px',
@@ -123,15 +124,17 @@ export default React.memo(function TodoList(props: Props) {
                      sx={{
                          marginY: '20px',
                          background: snapshot.isDraggingOver
-                             ? "#97d1f0"
+                             ? "#b7e4fc"
                              : "#c0e4f7",
                      }}>
                     {todos.map((todo: TodoItemInterface, index: number) => (
                         <Draggable draggableId={todo.id} key={todo.id} index={index}>
-                            {(provided: DraggableProvided) => (
+                            {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
                                 <Box ref={provided.innerRef}
                                      {...provided.draggableProps}
-                                     {...provided.dragHandleProps}>
+                                     {...provided.dragHandleProps}
+                                    sx={{backgroundColor: snapshot.isDragging ? '#afe2fd' : '#c0e4f7'}}
+                                >
                                     <TodoItem todo={todo} key={todo.id} listId={listId}/>
                                 </Box>
                             )}

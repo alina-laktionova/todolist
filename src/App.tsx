@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Box, Button, OutlinedInput, useMediaQuery} from "@mui/material";
 import {
     DragDropContext,
-    Draggable, DraggableProvided,
+    Draggable, DraggableProvided, DraggableStateSnapshot,
     Droppable,
     DroppableProvided,
     DropResult
@@ -106,12 +106,12 @@ export default function App() {
                          }}>
                         {todoLists.map((list: TodoListInterface, index: number) =>
                             <Draggable draggableId={list.id} index={index} key={list.id}>
-                                {(provided: DraggableProvided) => (
+                                {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
                                     <Box ref={provided.innerRef}
                                          {...provided.draggableProps}
                                          {...provided.dragHandleProps}>
                                         <TodoList todos={list.todos} listId={list.id} name={list.name}
-                                                  key={list.id}/>
+                                                  key={list.id} isDragging={snapshot.isDragging}/>
                                     </Box>
                                 )}
                             </Draggable>
