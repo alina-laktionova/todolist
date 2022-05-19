@@ -25,7 +25,7 @@ export default function todoReducer(todoLists: TodoListInterface[] = init, actio
         case LOAD_LISTS:
             return payload.lists
         case ADD_LIST:
-            return [...todoLists, {id: uuid(), name: payload.name, todos: payload.todos}];
+            return [{id: uuid(), name: payload.name, todos: payload.todos}, ...todoLists];
         case DELETE_LIST:
             return todoLists.filter((list: TodoListInterface) => list.id !== payload.listId);
         case RENAME_LIST:
@@ -59,7 +59,7 @@ function addTodo(lists: TodoListInterface[], listId: string, todoText: string): 
     return lists.map(list => {
         if (list.id === listId) {
             const newTodo = {id: uuid(), text: todoText, isDone: false}
-            return {...list, todos: [...list.todos, newTodo]}
+            return { ...list, todos: [newTodo, ...list.todos]}
         }
         return list;
     })
