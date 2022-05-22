@@ -2,4 +2,5 @@
 
 Demo: https://alina-laktionova.github.io/todolist/
 
-used: React Beautiful DND, Material UI, Redux
+Draggable lists and tasks, adapted for mobile and desktop screens.
+Used React Beautiful DND and Material UI.
